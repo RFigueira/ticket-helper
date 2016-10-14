@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ptf5="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns="http://www.w3.org/1999/xhtml"
+                template="./../../../resources/templates/master-page.xhtml"
+                xmlns:mens="http://java.sun.com/jsf/composite/components"
+                xmlns:pretty="http://ocpsoft.com/prettyfaces">
+
+    <ui:define name="content">
+        <h:form>
+            <nav class="navbar navbar-default listagem" role="navigation">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class=""><pretty:link id="pretty-link-conteudo-novo"  mappingId="pessoa-nova"> <i class="glyphicon glyphicon-plus"></i>  Nova pessoa </pretty:link></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <div class="form-group">
+                                    <h:inputText styleClass="form-control input-pesquisa-listagem" value=" " ptf5:placeholder="Pesquisar..."/>
+                                </div>
+                            </li>
+                            <li>
+                                <h:commandLink class="icon-bar" rel=" " ><i class="glyphicon glyphicon-search"></i></h:commandLink>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </h:form>
+        <mens:messages/>
+
+        <h:outputText value="Desculpe, nenhum item encontrado." rendered="#{pessoaController.pessoas.size() eq 0}"  />
+        <h:form id="formListagemPessoas" rendered="#{pessoaController.pessoas.size() ne 0}">
+            <fieldset>
+                <legend><i class="glyphicon glyphicon-th-list" ></i> Listagem</legend>
+                <h:dataTable var="pessoa" value="#{pessoaController.pessoas}" class="table table-bordered table-hover">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:commandLink value="ID" class="glyphicon glyphicon-sort"/>
+                        </f:facet>
+                        #{pessoa.id}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Nome
+                        </f:facet>
+                        <pretty:link
+                            mappingId="pessoa-editar">
+                            #{pessoa.nome}
+                            <f:param value="#{pessoa.id}" />
+                        </pretty:link>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Email
+                        </f:facet>
+                        #{pessoa.email}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Perfil
+                        </f:facet>
+                        #{pessoa.categoriaPessoaContatoEnum.nome}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Status
+                        </f:facet>
+                        #{pessoa.status.nome}
+                    </h:column>
+                </h:dataTable>
+            </fieldset>
+        </h:form>
+    </ui:define>
+</ui:composition>

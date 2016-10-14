@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ptf5="http://xmlns.jcp.org/jsf/passthrough"
+      html="http://www.w3.org/1999/xhtml">
+
+    <ui:component>
+        <h:form id="uploadForm" enctype="multipart/form-data">
+            <h:inputFile class="btn btn-default" ptf5:multiple="multiple" 
+                         id="#{id}" value="#{uploadController.part}" styleClass="btn btn-default"   />
+            <h:commandLink
+                actionListener="#{uploadController.upload()}"
+                 styleClass="btn btn-warning pull-right">
+                <i class="glyphicon glyphicon-cloud-upload"></i> Enviar
+            </h:commandLink>
+<!--            <div class="row full">
+                <ui:repeat var="img" value= " >
+                    <div class="col-xs-6 col-sm-3 col-md-3  ">
+                        <img class="thumbnail" src=" urlPhoto" />
+                    </div>
+                </ui:repeat>
+            </div>-->
+        </h:form>
+    </ui:component>
+</html>

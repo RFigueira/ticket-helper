@@ -1,0 +1,44 @@
+<ui:component
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:cc="http://java.sun.com/jsf/composite"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+
+    <cc:interface>
+    </cc:interface>
+
+    <cc:implementation>
+        <div id="#{cc.clientId}">
+            <p:ajaxStatus id="ajaxStatusLoading" style="position:absolute;">
+                <f:facet name="start">
+                    <div style="z-index:999999999; position: fixed; left: 0; right: 0; top: 0; bottom: 0; background: rgba(255,255,255,0.75);">
+                        <div style="position: fixed; left: 0; right: 0; top: 50%; text-align: center; font-size: 18px; font-style: normal;">
+                            <div class="preloader-wrapper active">
+                                <div class="spinner-layer spinner-red-only">
+                                    <div class="circle-clipper left">
+                                        <div class="circle"></div>
+                                    </div>
+                                <div class="gap-patch">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="circle-clipper right">
+                                    <div class="circle"></div>
+                                </div>
+                                </div>
+                            </div>
+                            <div  class="row">
+                                Aguarde...
+                            </div>
+                        </div>
+                    </div>
+                </f:facet>
+
+                <f:facet name="complete">
+                    <h:outputText value=""/>
+                </f:facet>
+            </p:ajaxStatus>
+        </div>
+    </cc:implementation>
+</ui:component>

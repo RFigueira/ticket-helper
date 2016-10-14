@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ptf5="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns="http://www.w3.org/1999/xhtml"
+                template="./../../../resources/templates/master-page.xhtml"
+                xmlns:mens="http://java.sun.com/jsf/composite/components">
+    <ui:define name="content">
+        <h:form id="form">
+            <fieldset>
+                <h:inputHidden value="#{contatoController.contato.id}"/>
+                <legend><h2><i class="glyphicon glyphicon-envelope"></i> Vizualizar Contatos</h2></legend>
+                <mens:messages/>
+                <div id="divID" class="row">
+                    <div class="form-group col-xs-12 col-sm-1 col-md-1">
+                        <label>Código</label>
+                        <h:outputText class="form-control"
+                                     value="#{contatoController.contatoId}"/>
+                    </div>
+                    <div class="form-group col-xs-12 col-sm-3 col-md-3">
+                        <label>Data do contato</label>
+                        <h:outputText styleClass="form-control" ptf5:placeholder="Dia/Mês/Ano hh:mm"
+                                     value="#{contatoController.contato.dataContato}">
+                            <f:converter converterId="localDateTimeFacesConverter"/>
+                        </h:outputText>
+                    </div>
+                    <div class="form-group col-xs-12 col-sm-3 col-md-3">
+                        <label>Categoria de contato</label>
+                        <h:outputText styleClass="form-control"
+                                      value="#{contatoController.contato.categoriaContato.nome}">
+                        </h:outputText>
+                    </div>
+                    <ui:fragment rendered="#{contatoController.contato.categoriaContato.sugestoes}">
+                        <div class="form-group col-xs-12 col-sm-4 col-md-4">
+                            <label>Quem sugeriu</label>
+                            <h:outputText styleClass="form-control"
+                                          value="#{contatoController.contato.categoriaPessoaContato.nome}">
+                            </h:outputText>
+                        </div>
+                    </ui:fragment>
+                </div>
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-4 col-md-4">
+                        <label>Nome do contactante</label>
+                        <h:outputText styleClass="form-control"
+                                      value="#{contatoController.contato.nome}">
+                        </h:outputText>
+                    </div>
+                    <div class="form-group col-xs-12 col-sm-4 col-md-4">
+                        <label>Telefone para contato</label>
+                        <h:outputText styleClass="form-control"
+                                      value="#{contatoController.contato.telefone}">
+                        </h:outputText>
+                    </div>
+                    <div class="form-group col-xs-12 col-sm-4 col-md-4">
+                        <label>Email para contato</label>
+                        <h:outputText styleClass="form-control"
+                                      value="#{contatoController.contato.email}">
+                        </h:outputText>
+                    </div>
+                </div>
+                <ui:fragment rendered="#{contatoController.contato.categoriaContato.comunicadoDeFalta or contatoController.contato.categoriaContato.solicitacaoReuniao}">
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-1 col-md-1">
+                        <label>Turma</label>
+                        <h:outputText styleClass="form-control"
+                                      value="#{contatoController.contato.turma}">
+                        </h:outputText>
+                    </div>
+                    <div class="form-group col-xs-12 col-sm-4 col-md-4">
+                        <label>Nome do aluno</label>
+                        <h:outputText styleClass="form-control"
+                                      value="#{contatoController.contato.nomeAluno}">
+                        </h:outputText>
+                    </div>
+                    <ui:fragment rendered="#{contatoController.contato.categoriaContato.solicitacaoReuniao}">
+                        <div class="form-group col-xs-12 col-sm-4 col-md-4">
+                            <label>Nome do professor</label>
+                            <h:outputText styleClass="form-control"
+                                          value="#{contatoController.contato.nomeProfessor}">
+                            </h:outputText>
+                        </div>
+                    </ui:fragment>
+                    <div class="form-group col-xs-12 col-sm-3 col-md-3">
+                        <label>#{contatoController.contato.categoriaContato.tagLabelData()}</label>
+                        <h:outputText styleClass="form-control data" ptf5:placeholder="Dia/Mês/Ano"
+                                      value="#{contatoController.contato.dataFalta}">
+                            <f:converter converterId="localDateFacesConverter"/>
+                        </h:outputText>
+                    </div>
+                </div>
+                </ui:fragment>
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                        <label>#{contatoController.contato.categoriaContato.tagLabelMensagem()}</label>
+                        <h:inputTextarea styleClass="form-control"
+                                      rows="10"
+                                      value="#{contatoController.contato.mensagem}"
+                                      readonly="true">
+                        </h:inputTextarea>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-8 col-md-8 ">
+                        <label class="block-label">Status</label>
+                        <h:selectOneRadio value=" " class=" ">
+                            <f:selectItem itemValue="ATIVO" itemLabel=" Ativo"/>
+                            <f:selectItem itemValue="INATIVO" itemLabel=" Inativo"/>
+                        </h:selectOneRadio>
+                    </div>
+                </div>
+                <div class="row">
+                    <h:commandLink class="btn btn-danger pull-left" action=" ">
+                        <i class="glyphicon glyphicon-ban-circle"></i>
+                        Cancelar
+                    </h:commandLink>
+                    <h:commandLink class="btn btn-primary pull-right" action=" ">
+                        <i class="glyphicon glyphicon-floppy-saved"></i>
+                        Salvar
+                    </h:commandLink>
+                </div>
+            </fieldset>
+        </h:form>
+    </ui:define>
+</ui:composition>

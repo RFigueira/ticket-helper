@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ptf5="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns="http://www.w3.org/1999/xhtml"
+                template="./../../../resources/templates/master-page.xhtml"
+                xmlns:mens="http://java.sun.com/jsf/composite/components">
+    <ui:define name="content">
+        <h:form class="form-group">
+            <fieldset>
+                <h:inputHidden value="#{ticketController.ticket.id}" />
+                <legend><h2><i class="glyphicon glyphicon-book" ></i>  Ticket</h2> </legend>
+                <mens:messages/>
+                <div id="div-dasdos-basicaos" class="row">
+                    <div class="form-group col-xs-12 col-sm-1 col-md-1">
+                        <label>Código</label>
+                        <h:inputText readonly="true" class="form-control"  value="#{ticketController.ticket.id}" />
+                    </div>
+                    <div class="form-group col-xs-12 col-sm-7 col-md-7">
+                        <label>Título*</label>
+                        <h:inputText  ptf5:placeholder="Escreva aqui o título"
+                                      class="form-control"
+                                      value="#{ticketController.ticket.titulo}"
+                                      required="true"
+                                      requiredMessage="O campo Título é obrigatório."/>
+                    </div>
+                    <div class="form-group col-xs-12 col-sm-3 col-md-3">
+                        <label>Data de abertura</label>
+                        <h:outputText styleClass="form-control" ptf5:placeholder="Dia/Mês/Ano hh:mm"
+                                      value="#{ticketController.ticket.dataHoraCriacao}">
+                            <f:converter converterId="localDateTimeFacesConverter"/>
+                        </h:outputText>
+                    </div>
+
+                </div>
+                <div id="div-dados" class="row">
+                    <div class="form-group col-xs-12 col-sm-5 col-md-5">
+                        <label>Categoria*</label>
+                        <h:selectOneMenu id="select-categoria"
+                                         value="#{ticketController.ticket.categoria}"
+                                         styleClass="form-control"
+                                         converter="genericEntityConverter">
+                            <f:selectItem itemLabel="#{message['selecione']}"
+                                          itemDisabled="#{ticketController.ticket.id ne null}"
+                                          value="#{null}"/>
+                            <f:selectItems value="#{ticketController.categorias}"
+                                           var="cat"
+                                           itemLabel="#{cat.nome}"/>
+                        </h:selectOneMenu>
+                    </div>
+                    <div class="form-group col-xs-12 col-sm-4 col-md-4">
+                        <label>Solicitante*</label>
+                        <h:selectOneMenu id="select-solicitante"
+                                         value="#{ticketController.ticket.solicitante}"
+                                         styleClass="form-control"
+                                         converter="genericEntityConverter">
+                            <f:selectItem itemLabel="#{message['selecione']}"
+                                          itemDisabled="#{ticketController.ticket.id ne null}"
+                                          value="#{null}"/>
+                            <f:selectItems value="#{ticketController.pessoas}"
+                                           var="sol"
+                                           itemLabel="#{sol.nome}"/>
+                        </h:selectOneMenu>
+                    </div>
+                    <div class="form-group col-xs-12 col-sm-4 col-md-4">
+                        <label>Responsavel*</label>
+                        <h:selectOneMenu id="select-responsavel"
+                                         value="#{ticketController.ticket.responsavel}"
+                                         styleClass="form-control"
+                                         converter="genericEntityConverter">
+                            <f:selectItem itemLabel="#{message['selecione']}"
+                                          itemDisabled="#{ticketController.ticket.id ne null}"
+                                          value="#{null}"/>
+                            <f:selectItems value="#{ticketController.pessoas}"
+                                           var="resp"
+                                           itemLabel="#{resp.nome}"/>
+                        </h:selectOneMenu>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="form-group col-xs-12 col-sm-4 col-md-4">
+                        <label>Prioridade*</label>
+                        <h:selectOneMenu id="select-prioridade"
+                                         value="#{ticketController.ticket.prioridade}"
+                                         styleClass="form-control">
+                            <f:selectItem itemLabel="#{message['selecione']}"
+                                          itemDisabled="#{ticketController.ticket.id ne null}"
+                                          value="#{null}"/>
+                            <f:selectItems value="#{enumCollectionsController.prioridadeEnumList}"
+                                           var="pri"
+                                           itemLabel="#{pri.nome}"/>
+                        </h:selectOneMenu>
+                    </div>
+                    <div class="form-group col-xs-12 col-sm-4 col-md-4">
+                        <label>Status*</label>
+                        <h:selectOneMenu id="select-status"
+                                         value="#{ticketController.ticket.status}"
+                                         styleClass="form-control">
+                            <f:selectItems value="#{enumCollectionsController.statusTicketEnumList}"
+                                           var="status"
+                                           itemLabel="#{status.nome}"/>
+                        </h:selectOneMenu>
+                    </div>
+                </div>
+                <div id="div-descrivao" class="row">
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                        <label>Descrição*</label>
+                        <h:inputTextarea ptf5:placeholder="Escreva aqui a descrição"
+                                         rows="5"
+                                         class="form-control"
+                                         value="#{ticketController.ticket.descricao}"
+                                         required="true"
+                                         requiredMessage="O campo Descrição é obrigatório."/>
+                    </div>
+                </div>
+                <div class="row">
+                <div class="form-group col-xs-12 col-sm-11 col-md-11 ">
+                    <h:commandLink class="btn btn-danger pull-left" onclick=" " >
+                        <i class="glyphicon glyphicon-ban-circle"></i>
+                        Cancelar
+                    </h:commandLink>
+                    <h:commandLink class="btn btn-primary pull-right" action="#{ticketController.salvar()}"  >
+                        <i class="glyphicon glyphicon-floppy-saved"></i>
+                        Salvar
+                    </h:commandLink>       
+                </div>
+                </div>
+            </fieldset>
+        </h:form>
+    </ui:define>
+</ui:composition>

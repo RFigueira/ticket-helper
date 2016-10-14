@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ptf5="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pretty="http://ocpsoft.com/prettyfaces">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <h:outputStylesheet name="bootstrap/css/bootstrap-theme.css" ptf5:rel="stylesheet"/>
+        <h:outputStylesheet name="bootstrap/css/bootstrap.css" ptf5:rel="stylesheet" />
+         <h:outputStylesheet library="css" name="inside.css" ptf5:rel="stylesheet"/>
+        <!--        <h:outputStylesheet library="css" name="sticky-footer-navbar.css" ptf5:rel="stylesheet"/>-->
+        <h:outputStylesheet library="images" name="codePampaFavicon.png" ptf5:rel="icon"/>
+        <title>.: Bem Vindo :.</title>
+    </h:head>
+    <h:body>
+        <div id="header" class="container-fluid">
+            <ui:insert name="header">
+                <h:form>
+                    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                        <div class="container">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <pretty:link id="prettyLinkIrParaHome" mappingId="dashboard" class="navbar-brand">
+                               <i class="glyphicon glyphicon-bullhorn" style="color: #999;"></i>  Ticket Helper</pretty:link>
+                            </div>
+                            <div class="navbar-collapse collapse">
+                                <ul class="nav navbar-nav" >
+                                    <li class="dropdown">
+                                        <a  href="#" class="dropdown-toggle"  data-toggle="dropdown">Navegue<b class="caret"></b></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li role="presentation" class="dropdown-header"><i class="glyphicon glyphicon-certificate"></i> Categoria</li>
+                                            <li class="">
+                                                <pretty:link id="pretty-link-categoria-nova" mappingId="categoria-nova">Nova</pretty:link>
+                                            </li>
+                                            <li class=""><pretty:link id="pretty-link-categorias" mappingId="categorias">Pesquisar</pretty:link></li>
+                                            <li class="divider"></li>
+                                            <li role="presentation" class="dropdown-header"><i class="glyphicon glyphicon-user"></i> Pessoa</li>
+                                            <li class=""><pretty:link id="pretty-link-pessoa-nova" mappingId="pessoa-nova">Novo</pretty:link>
+                                            </li>
+                                            <li class=""><pretty:link id="pretty-link-pessoas" mappingId="pessoas">Pesquisar</pretty:link></li>
+                                            <li class="divider"></li>
+                                            <li role="presentation" class="dropdown-header"><i class="glyphicon glyphicon-comment"></i> Chamado</li>
+                                            <li class=""><pretty:link id="pretty-link-ticket-novo" mappingId="ticket-novo">Novo</pretty:link>
+                                            </li>
+                                            <li class=""><pretty:link id="pretty-link-tickets" mappingId="tickets">Pesquisar</pretty:link></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li class="active"><a href="#"><i class="glyphicon glyphicon-user" style="color: #FEFEFE;"> Olá, #{loginController.pessoa.nome}</i></a></li>
+                                    <li> 
+                                        <h:commandLink  action="#{loginController.logout}" value=" Sair" />
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+            </ui:insert>
+        </div>
+        <div id="content" class="container" style="margin-top: 78px">
+            <ui:insert name="content">Content</ui:insert>
+
+        </div>
+        <div id="footer">
+            <ui:insert name="footer">
+                <div class="container">
+                    <p class="text-muted">Desenvolvido por crud</p>
+                </div>
+            </ui:insert>
+        </div>
+        <h:outputScript library="js" name="jquery-2.1.1.js"/>
+        <h:outputScript library="js" name="jquery-ui.js"/>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <h:outputScript  library="bootstrap" name="js/bootstrap.js"/>
+        <h:outputScript library="js" name="jquery.mask.js"/>
+        <h:outputScript library="js" name="mascaras.js"/>
+        <!--        JSs-->
+
+
+    </h:body>
+</html>
+

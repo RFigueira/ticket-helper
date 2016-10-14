@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ptf5="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pretty="http://ocpsoft.com/prettyfaces">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
+
+        <h:outputStylesheet name="materialize/css/materialize.min.css" ptf5:rel="stylesheet" ptf5:media="screen"/>
+        <h:outputStylesheet name="css/inside.css" ptf5:rel="stylesheet" />
+        <h:outputStylesheet name="css/inside.css" ptf5:rel="stylesheet"  ptf5:media="screen" />
+        <h:outputStylesheet library="images" name="codePampaFavicon.png" ptf5:rel="icon"/>
+        <!--        <h:outputStylesheet ptf5:rel="stylesheet" ptf5:media="screen" name="jqueryBxslider/jqueryBxslider.css" />-->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+        <title>João Severiano</title>
+    </h:head>
+    <h:body>
+        <ui:insert name="header">
+            <h:graphicImage  class="codepampa-width-full" library="images" name="bannerFull.png" />
+
+            <nav class="codepampa-band-menu" role="navigation">
+                <div class="nav-wrapper container">
+                    <pretty:link styleClass="brand-logo" id="logo-container" mappingId="home">
+                        <!--                        <h:graphicImage  class="codepampa-icon-header-site" library="images" name="LogoNovo.png" />-->
+                    </pretty:link>
+                    <ul class="right hide-on-med-and-down">
+                        <li><pretty:link styleClass="codepampa-link-color-white #{siteMasterController.marcaHome}" id="prettyLinkHome" mappingId="home">HOME</pretty:link></li>
+                        <li><pretty:link styleClass="codepampa-link-color-white #{siteMasterController.marcaNoticias}" id="prettyLinkNoticiasSite" mappingId="noticias-site">NOTÍCIAS</pretty:link></li>
+                        <li><pretty:link styleClass="codepampa-link-color-white #{siteMasterController.marcaContato}" id="prettyLinkContato" mappingId="contato">CONTATO</pretty:link></li>
+                        <li><pretty:link styleClass="codepampa-link-color-white #{siteMasterController.marcaQuemSomos}" id="prettyLinkQuemSomos" mappingId="quem-somos">QUEM SOMOS</pretty:link></li>
+                        <li><pretty:link styleClass="codepampa-link-color-white #{siteMasterController.marcaMultiMideia}" id="prettyLinkMultiMidia" mappingId="multimidia">MULTIMÍDIA</pretty:link></li>
+                        <li><pretty:link styleClass="codepampa-link-color-white #{siteMasterController.marcarConteudos}" id="prettyLinkEventos" mappingId="conteudos-home">CONTEÚDO</pretty:link></li>
+                    </ul>
+
+                    <ul id="nav-mobile" class="side-nav">
+                        <pretty:link styleClass=" #{siteMasterController.marcaHome}" id="prettyLinkHomeMenuEscondido" mappingId="home">HOME</pretty:link>
+                        <pretty:link styleClass=" #{siteMasterController.marcaNoticias}" id="prettyLinkNoticiasSiteMenuEscondido" mappingId="noticias-site">NOTÍCIAS</pretty:link>
+                        <pretty:link styleClass=" #{siteMasterController.marcaContato}" id="prettyLinkContatoMenuEscondido" mappingId="contato">CONTATO</pretty:link>
+                        <pretty:link styleClass=" #{siteMasterController.marcaQuemSomos}" id="prettyLinkQuemSomosMenuEscondido" mappingId="quem-somos">QUEM SOMOS</pretty:link>
+                        <pretty:link styleClass=" #{siteMasterController.marcaMultiMideia}" id="prettyLinkMultiMidiaMenuEscondido" mappingId="multimidia">MULTIMÍDIA</pretty:link>
+                        <pretty:link styleClass=" #{siteMasterController.marcarConteudos}" id="prettyLinkEventosMenuEscondido" mappingId="conteudos-home">CONTEÚDO</pretty:link>
+                        <pretty:link  id="prettyLinkADmF" mappingId="login"><h:graphicImage library="icons" name="cogs.png" /></pretty:link>
+                    </ul>
+                    <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+                </div>
+            </nav>
+        </ui:insert>
+        <!--        <div class="section no-pad-bot" id="index-banner">-->
+        <ui:insert name="content"></ui:insert>
+        <!--        </div>-->
+        <ui:insert name="footer">
+            <div class="footer-copyright codepampa-footer-fix codepampa-band-menu">
+                <div class="container">
+                    <div class="row">
+                        <span>TODOS OS DIREITOS RESERVADOS</span>
+
+                        Desenvolvido por
+                        <a target="_blank" title="codePampa" href="https://codepampa.com.br" style="padding: 0.5em; margin-left: 0px">
+                            <h:graphicImage library="images" name="logo-codePampa-branco-p.png"/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </ui:insert>
+        <!-- importações -->
+        <h:outputScript library="js" name="jquery-2.1.1.js"/>
+        <h:outputScript library="js" name="jquery-ui.js"/>
+        <h:outputScript  library="materialize" name="js/materialize.min.js"/>
+        <h:outputScript library="js" name="jquery.mask.js"/>
+        <h:outputScript library="js" name="mascaras.js"/>
+        <script type="text/javascript">
+            (function ($) {
+                $(function () {
+                    $('.button-collapse').sideNav();
+                }); // end of document ready
+            })(jQuery);
+        </script>
+
+    </h:body>
+</html>
+

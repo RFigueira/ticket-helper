@@ -1,0 +1,37 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.1" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <persistence-unit name="br.com.codepampa_tickethelper_war_1.0PU" transaction-type="RESOURCE_LOCAL">
+        <class>br.com.codepampa.model.Pessoa</class>
+        <class>br.com.codepampa.model.Categoria</class>
+        <class>br.com.codepampa.model.Ticket</class>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+
+            <!--             Banco kinghost -->
+        <!--<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://pgsql.tickethelper.com.br:5432/tickethelper"/>
+            <property name="javax.persistence.jdbc.user" value="tickethelper"/>
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="javax.persistence.jdbc.password" value="tickethelper#@!"/>-->
+            <!--             Fim Banco kinghost -->
+
+            <!--             Banco local  -->
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/tickethelper"/>
+            <property name="javax.persistence.jdbc.user" value="postgres"/>
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="javax.persistence.jdbc.password" value="postgres"/>
+            <!--         fim    Banco local  -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL93Dialect"/>
+            <property name="hibernate.cache.provider_class" value="org.hibernate.cache.internal.NoCachingRegionFactory"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <!--       C3P0 -->
+            <property name="hibernate.connection.provider_class" value="org.hibernate.c3p0.internal.C3P0ConnectionProvider"/>
+            <property name="hibernate.c3p0.max_size" value="100"/>
+            <property name="hibernate.c3p0.min_size" value="1"/>
+            <property name="hibernate.c3p0.acquire_increment" value="1"/>
+            <property name="hibernate.c3p0.idle_test_period" value="300"/>
+            <property name="hibernate.c3p0.max_statements" value="0"/>
+            <property name="hibernate.c3p0.timeout" value="100"/>
+        </properties>
+    </persistence-unit>
+</persistence>

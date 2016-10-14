@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:ptf5="http://xmlns.jcp.org/jsf/passthrough">
+
+<cc:interface>
+    <cc:attribute name="showSeverity" default="false"/>
+    <cc:attribute name="showSummary" default="true"/>
+    <cc:attribute name="showDetail" default="false"/>
+</cc:interface>
+
+<cc:implementation xmlns:mens="http://java.sun.com/jsf/composite/components">
+    <div id="#{cc.clientId}">
+        <ui:fragment rendered="#{messageController.hasMessages('INFO')}"
+                     id="#{cc.attrs.id}-info">
+            <div id="validacao" class="card-panel teal" role="alert">
+                <ui:repeat value="#{messageController.messages('INFO')}"
+                           var="facesMessage">
+                    <mens:message value="#{facesMessage}"
+                                  showSeverity="#{cc.attrs.showSeverity}"
+                                  showSummary="#{cc.attrs.showSummary}"
+                                  showDetail="#{cc.attrs.showDetail}"/>
+                </ui:repeat>
+            </div>
+        </ui:fragment>
+        <ui:fragment rendered="#{messageController.hasMessages('WARN')}"
+                     id="#{cc.attrs.id}-warn">
+            <div id="validacao-warn" class="card-panel" role="alert">
+
+                <ui:repeat value="#{messageController.messages('WARN')}"
+                           var="facesMessage">
+                    <mens:message value="#{facesMessage}"
+                                  showSeverity="#{cc.attrs.showSeverity}"
+                                  showSummary="#{cc.attrs.showSummary}"
+                                  showDetail="#{cc.attrs.showDetail}"/>
+                </ui:repeat>
+            </div>
+        </ui:fragment>
+        <ui:fragment rendered="#{messageController.hasMessages('ERROR FATAL')}"
+                     id="#{cc.attrs.id}-error">
+            <div id="validacao-error" class="card-panel red" role="alert">
+                <ui:repeat value="#{messageController.messages('ERROR FATAL')}"
+                           var="facesMessage">
+                    <mens:message value="#{facesMessage}"
+                                  showSeverity="#{cc.attrs.showSeverity}"
+                                  showSummary="#{cc.attrs.showSummary}"
+                                  showDetail="#{cc.attrs.showDetail}"/>
+                </ui:repeat>
+            </div>
+        </ui:fragment>
+    </div>
+</cc:implementation>
+</html>
