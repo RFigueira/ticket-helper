@@ -32,8 +32,8 @@
                 <div id="div-descrivao" class="row">
                     <div class="form-group col-xs-12 col-sm-11 col-md-11">
                         <label>Tipo pessoa</label>
-                        <h:selectOneRadio value="#{pessoaController.pessoa.categoriaPessoaContatoEnum}" class=" ">
-                            <f:selectItems value="#{enumCollectionsController.categoriaPessoaContatoEnum}"
+                        <h:selectOneRadio value="#{pessoaController.pessoa.categoriaPessoaEnum}" class=" ">
+                            <f:selectItems value="#{enumCollectionsController.categoriaPessoaEnum}"
                                            var="cat"
                                            itemLabel="#{cat.nome}" itemValue="#{cat}"/>
                         </h:selectOneRadio>

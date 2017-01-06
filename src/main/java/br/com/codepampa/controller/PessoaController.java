@@ -41,7 +41,7 @@ public class PessoaController implements Serializable {
 
     public void salvar() {
         try {
-            pessoaService.save(pessoa);
+            pessoaService.inserir(pessoa);
             pessoaId = pessoa.getId();
             Messages.addGlobalInfo(Bundles.getString("operacao.realizada.sucesso"));
             JSFUtil.prettyRedirect("pessoa-editar", pessoaId);

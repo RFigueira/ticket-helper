@@ -14,7 +14,7 @@
          <h:outputStylesheet library="css" name="inside.css" ptf5:rel="stylesheet"/>
         <!--        <h:outputStylesheet library="css" name="sticky-footer-navbar.css" ptf5:rel="stylesheet"/>-->
         <h:outputStylesheet library="images" name="codePampaFavicon.png" ptf5:rel="icon"/>
-        <title>.: Bem Vindo :.</title>
+        <title><ui:insert name="title">Ticket Helper</ui:insert></title>
     </h:head>
     <h:body>
         <div id="header" class="container-fluid">
@@ -56,7 +56,7 @@
                                     </li>
                                 </ul>
                                 <ul class="nav navbar-nav navbar-right">
-                                    <li class="active"><a href="#"><i class="glyphicon glyphicon-user" style="color: #FEFEFE;"> Olá, #{loginController.pessoa.nome}</i></a></li>
+                                    <li class="active"><a href="#"><i class="glyphicon glyphicon-user" style="color: #FEFEFE;"> Olá, #{dashboardController.pessoa.nome}</i></a></li>
                                     <li> 
                                         <h:commandLink  action="#{loginController.logout}" value=" Sair" />
                                     </li>

@@ -1,7 +1,7 @@
 package br.com.codepampa.model;
 
 import br.com.codepampa.enumerator.CategoriaContatoEnum;
-import br.com.codepampa.enumerator.CategoriaPessoaContatoEnum;
+import br.com.codepampa.enumerator.CategoriaPessoaEnum;
 import br.com.codepampa.enumerator.StatusTicketEnum;
 import lombok.Data;
 
@@ -62,7 +62,7 @@ public class Contato extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column
-    private CategoriaPessoaContatoEnum categoriaPessoaContato;
+    private CategoriaPessoaEnum categoriaPessoaContato;
 
 
     public Contato(){

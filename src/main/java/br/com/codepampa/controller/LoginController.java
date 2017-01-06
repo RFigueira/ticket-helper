@@ -3,9 +3,13 @@ package br.com.codepampa.controller;
 import br.com.codepampa.model.Pessoa;
 import br.com.codepampa.security.Access;
 import br.com.codepampa.service.PessoaService;
+import br.com.codepampa.util.Bundles;
 import br.com.codepampa.util.JSFUtil;
+import com.ocpsoft.pretty.faces.annotation.URLMapping;
+import com.ocpsoft.pretty.faces.annotation.URLMappings;
 import lombok.Getter;
 import lombok.Setter;
+import org.omnifaces.util.Messages;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -17,6 +21,9 @@ import java.sql.SQLException;
 @Setter
 @ManagedBean
 @RequestScoped
+@URLMappings(mappings = {
+        @URLMapping(onPostback = false ,id = "login", pattern = "/login/", viewId = "/faces/login.xhtml")
+})
 public class LoginController implements Serializable {
 
     private Pessoa pessoa;
@@ -33,6 +40,7 @@ public class LoginController implements Serializable {
     public void logar() throws SQLException {
         pessoa = pessoaService.getCrendeciais(pessoa);
         if (pessoa == null) {
+            Messages.addGlobalWarn(Bundles.getString("login.senha.invalida"));
             JSFUtil.prettyRedirect("login");
             return;
         }
@@ -52,4 +60,5 @@ public class LoginController implements Serializable {
         }
         return pessoa;
     }
+
 }

@@ -2,8 +2,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ptf5="http://xmlns.jcp.org/jsf/passthrough">
-    <h:head>
+      xmlns:ptf5="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:mens="http://java.sun.com/jsf/composite/components">
+
+<h:head>
         <title>.: Bem Vindo :.</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -23,6 +25,7 @@
 
                 <h:graphicImage styleClass="img-circle login" library="images" name="codePampa160.png" alt="codePampa" />
                 <h2 class="form-signin-heading">Login</h2>
+                <mens:messages/>
                 <h:inputText value="#{loginController.pessoa.email}" styleClass="form-control"  required="" ptf5:placeholder="Usuário"  />
                 <h:inputSecret  value="#{loginController.pessoa.senha}" styleClass="form-control"  required="" ptf5:placeholder="Senha" />
                 <h:commandLink  id="btn-logar"

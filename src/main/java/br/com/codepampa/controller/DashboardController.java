@@ -1,5 +1,8 @@
 package br.com.codepampa.controller;
 
+import br.com.codepampa.model.Pessoa;
+import br.com.codepampa.security.Access;
+import br.com.codepampa.util.JSFUtil;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
 import lombok.Getter;
@@ -21,10 +24,16 @@ public class DashboardController {
 
     private Part arquivo;
     private byte[] imagem;
+    private Pessoa pessoa;
 
 
 
     public DashboardController() {
+        pessoa = Access.carregarUsuarioDaSession();
+        if(pessoa == null) {
+            JSFUtil.prettyRedirect("login");
+        }
+
     }
 
     //TODO: Serve para testar o upload

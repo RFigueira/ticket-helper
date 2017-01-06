@@ -1,5 +1,6 @@
 package br.com.codepampa.controller;
 
+import br.com.codepampa.enumerator.CategoriaPessoaEnum;
 import br.com.codepampa.model.Categoria;
 import br.com.codepampa.model.Pessoa;
 import br.com.codepampa.model.Ticket;
@@ -20,6 +21,7 @@ import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 //Gerador de getters e setters
 @Getter
@@ -41,6 +43,8 @@ public class TicketController implements Serializable {
     private Ticket ticket;
     private List<Ticket> tickets= new ArrayList<>();
     private List<Categoria> categorias = new ArrayList<>();
+    private List<Pessoa> solicitantes = new ArrayList<>();
+    private List<Pessoa> responsavel = new ArrayList<>();
     private List<Pessoa> pessoas = new ArrayList<>();
     private Long ticketId;
 
@@ -55,6 +59,16 @@ public class TicketController implements Serializable {
         pessoaService = new PessoaService();
         categorias = categoriaService.findAllCriteria();
         pessoas = pessoaService.findAllCriteria();
+        solicitantes = pessoas
+                .stream()
+                .filter(p-> p.getCategoriaPessoaEnum() == CategoriaPessoaEnum.USUARIO)
+                .collect(Collectors.toList());
+
+        responsavel = pessoas
+                .stream()
+                .filter(p-> p.getCategoriaPessoaEnum() != CategoriaPessoaEnum.USUARIO)
+                .collect(Collectors.toList());
+
     }
 
     public void salvar() {

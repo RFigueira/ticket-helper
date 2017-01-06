@@ -8,6 +8,9 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 template="./../../../resources/templates/master-page.xhtml"
                 xmlns:mens="http://java.sun.com/jsf/composite/components">
+    <ui:define name="title">
+            ##{ticketController.ticket.id} - #{ticketController.ticket.solicitante.nome}
+    </ui:define>
     <ui:define name="content">
         <h:form class="form-group">
             <fieldset>
@@ -37,7 +40,7 @@
 
                 </div>
                 <div id="div-dados" class="row">
-                    <div class="form-group col-xs-12 col-sm-5 col-md-5">
+                    <div class="form-group col-xs-12 col-sm-3 col-md-3">
                         <label>Categoria*</label>
                         <h:selectOneMenu id="select-categoria"
                                          value="#{ticketController.ticket.categoria}"
@@ -51,50 +54,53 @@
                                            itemLabel="#{cat.nome}"/>
                         </h:selectOneMenu>
                     </div>
-                    <div class="form-group col-xs-12 col-sm-4 col-md-4">
-                        <label>Solicitante*</label>
-                        <h:selectOneMenu id="select-solicitante"
-                                         value="#{ticketController.ticket.solicitante}"
-                                         styleClass="form-control"
-                                         converter="genericEntityConverter">
-                            <f:selectItem itemLabel="#{message['selecione']}"
-                                          itemDisabled="#{ticketController.ticket.id ne null}"
-                                          value="#{null}"/>
-                            <f:selectItems value="#{ticketController.pessoas}"
-                                           var="sol"
-                                           itemLabel="#{sol.nome}"/>
-                        </h:selectOneMenu>
+                    <ui:fragment rendered="#{dashboardController.pessoa.categoriaPessoaEnum.responsavel}">
+                        <div class="form-group col-xs-12 col-sm-4 col-md-4">
+                            <label>Solicitante*</label>
+                            <h:selectOneMenu id="select-solicitante"
+                                             value="#{ticketController.ticket.solicitante}"
+                                             styleClass="form-control"
+                                             converter="genericEntityConverter">
+                                <f:selectItem itemLabel="#{message['selecione']}"
+                                              itemDisabled="#{ticketController.ticket.id ne null}"
+                                              value="#{null}"
+                                              rendered="#{dashboardController.pessoa.categoriaPessoaEnum.responsavel}"/>
+                                <f:selectItems value="#{ticketController.solicitantes}"
+                                               var="sol"
+                                               itemLabel="#{sol.nome}"/>
+                            </h:selectOneMenu>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-4 col-md-4">
+                            <label>Responsavel*</label>
+                            <h:selectOneMenu id="select-responsavel"
+                                             value="#{ticketController.ticket.responsavel}"
+                                             styleClass="form-control"
+                                             converter="genericEntityConverter">
+                                <f:selectItem itemLabel="#{message['selecione']}"
+                                              itemDisabled="#{ticketController.ticket.id ne null}"
+                                              value="#{null}"/>
+                                <f:selectItems value="#{ticketController.responsavel}"
+                                               var="resp"
+                                               itemLabel="#{resp.nome}"/>
+                            </h:selectOneMenu>
+                        </div>
+                    </ui:fragment>
                     </div>
-                    <div class="form-group col-xs-12 col-sm-4 col-md-4">
-                        <label>Responsavel*</label>
-                        <h:selectOneMenu id="select-responsavel"
-                                         value="#{ticketController.ticket.responsavel}"
-                                         styleClass="form-control"
-                                         converter="genericEntityConverter">
-                            <f:selectItem itemLabel="#{message['selecione']}"
-                                          itemDisabled="#{ticketController.ticket.id ne null}"
-                                          value="#{null}"/>
-                            <f:selectItems value="#{ticketController.pessoas}"
-                                           var="resp"
-                                           itemLabel="#{resp.nome}"/>
-                        </h:selectOneMenu>
-                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-4 col-md-4">
+                            <label>Prioridade*</label>
+                            <h:selectOneMenu id="select-prioridade"
+                                             value="#{ticketController.ticket.prioridade}"
+                                             styleClass="form-control">
+                                <f:selectItem itemLabel="#{message['selecione']}"
+                                              itemDisabled="#{ticketController.ticket.id ne null}"
+                                              value="#{null}"/>
+                                <f:selectItems value="#{enumCollectionsController.prioridadeEnumList}"
+                                               var="pri"
+                                               itemLabel="#{pri.nome}"/>
+                            </h:selectOneMenu>
+                        </div>
 
-                </div>
-                <div class="row">
-                    <div class="form-group col-xs-12 col-sm-4 col-md-4">
-                        <label>Prioridade*</label>
-                        <h:selectOneMenu id="select-prioridade"
-                                         value="#{ticketController.ticket.prioridade}"
-                                         styleClass="form-control">
-                            <f:selectItem itemLabel="#{message['selecione']}"
-                                          itemDisabled="#{ticketController.ticket.id ne null}"
-                                          value="#{null}"/>
-                            <f:selectItems value="#{enumCollectionsController.prioridadeEnumList}"
-                                           var="pri"
-                                           itemLabel="#{pri.nome}"/>
-                        </h:selectOneMenu>
-                    </div>
                     <div class="form-group col-xs-12 col-sm-4 col-md-4">
                         <label>Status*</label>
                         <h:selectOneMenu id="select-status"
@@ -114,20 +120,21 @@
                                          class="form-control"
                                          value="#{ticketController.ticket.descricao}"
                                          required="true"
-                                         requiredMessage="O campo Descrição é obrigatório."/>
+                                         requiredMessage="O campo Descrição é obrigatório."
+                                         disabled="#{not ticketController.ticket.new}"/>
                     </div>
                 </div>
                 <div class="row">
-                <div class="form-group col-xs-12 col-sm-11 col-md-11 ">
-                    <h:commandLink class="btn btn-danger pull-left" onclick=" " >
-                        <i class="glyphicon glyphicon-ban-circle"></i>
-                        Cancelar
-                    </h:commandLink>
-                    <h:commandLink class="btn btn-primary pull-right" action="#{ticketController.salvar()}"  >
-                        <i class="glyphicon glyphicon-floppy-saved"></i>
-                        Salvar
-                    </h:commandLink>       
-                </div>
+                    <div class="form-group col-xs-12 col-sm-11 col-md-11 ">
+                        <h:commandLink class="btn btn-danger pull-left" onclick=" " >
+                            <i class="glyphicon glyphicon-ban-circle"></i>
+                            Cancelar
+                        </h:commandLink>
+                        <h:commandLink class="btn btn-primary pull-right" action="#{ticketController.salvar()}"  >
+                            <i class="glyphicon glyphicon-floppy-saved"></i>
+                            Salvar
+                        </h:commandLink>
+                    </div>
                 </div>
             </fieldset>
         </h:form>

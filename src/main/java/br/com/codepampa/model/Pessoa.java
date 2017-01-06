@@ -1,6 +1,6 @@
 package br.com.codepampa.model;
 
-import br.com.codepampa.enumerator.CategoriaPessoaContatoEnum;
+import br.com.codepampa.enumerator.CategoriaPessoaEnum;
 import br.com.codepampa.enumerator.StatusEnum;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +20,9 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "pessoa")
 @NamedQueries({
-        @NamedQuery(name = "Pessoa.getCredential", query = "SELECT p FROM Pessoa p WHERE p.email = :email AND p.senha = :senha ")
+        @NamedQuery(name = "Pessoa.getCredential", query = "SELECT p FROM Pessoa p WHERE p.email = :email AND p.senha = :senha AND p.status = :status "),
+        @NamedQuery(name = "Pessoa.findByCategoriaPessoa", query = "SELECT p FROM Pessoa p WHERE p.categoriaPessoaEnum = :categoriaPessoa"),
+        @NamedQuery(name = "Pessoa.findResponsaveis", query = "SELECT p FROM Pessoa p WHERE p.categoriaPessoaEnum <> :categoriaPessoa")
 })
 public class Pessoa extends BaseEntity {
 
@@ -33,8 +35,8 @@ public class Pessoa extends BaseEntity {
     @Column(name = "email", length = 150)
     private String email;
 
-    @Size(max = 250)
-    @Column(name = "senha", length = 250)
+    @Size(max = 255)
+    @Column(name = "senha", length = 255)
     private String senha;
 
     @Size(max = 250)
@@ -55,8 +57,7 @@ public class Pessoa extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "categoria")
-    private CategoriaPessoaContatoEnum categoriaPessoaContatoEnum = CategoriaPessoaContatoEnum.ADMIN;
-
+    private CategoriaPessoaEnum categoriaPessoaEnum = CategoriaPessoaEnum.ADMIN;
 
 
 }

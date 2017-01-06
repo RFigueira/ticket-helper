@@ -2,19 +2,25 @@ package br.com.codepampa.model;
 
 import br.com.codepampa.enumerator.PrioridadeEnum;
 import br.com.codepampa.enumerator.StatusTicketEnum;
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Setter;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+//insert int pessoa values ADMIN, foolha@gmail.com,	Rodrigo Freitas, 532, Capitão ceriaco garcia, 81dc9bdb52d04dc20036dbd8313ed055,	ATIVO
 
 @Data
 @Entity
@@ -58,6 +64,26 @@ public class Ticket extends BaseEntity {
     private LocalDateTime dataHoraFechamento;
 
 
+    @OneToMany(mappedBy = "ticket", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private List<InteracaoTicket> interacoes = new ArrayList<>();
 
+    public void addInteracaoExterna(InteracaoTicket interacaoTicket) {
+        addInteracao(interacaoTicket, false);
+    }
+
+    public void addInteracaoInterna(InteracaoTicket interacaoTicket) {
+        addInteracao(interacaoTicket, true);
+    }
+
+    private void addInteracao(InteracaoTicket interacaoTicket, boolean interna) {
+
+        interacaoTicket.setInterna(interna);
+        interacoes.add(interacaoTicket);
+
+        if (interacaoTicket.getDataHoraCriacao() == null) {
+            interacaoTicket.setDataHoraCriacao(LocalDateTime.now());
+        }
+    }
 
 }
