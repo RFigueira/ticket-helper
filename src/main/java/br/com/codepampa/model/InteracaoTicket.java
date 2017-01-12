@@ -33,7 +33,7 @@ public class InteracaoTicket extends BaseEntity {
 
     @NotNull
     @Column(name = "data_hora_criacao")
-    private LocalDateTime dataHoraCriacao;
+    private LocalDateTime dataHoraCriacao = LocalDateTime.now();
 
     @Column
     private boolean interna;

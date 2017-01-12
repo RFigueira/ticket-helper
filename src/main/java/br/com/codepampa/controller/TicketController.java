@@ -2,8 +2,10 @@ package br.com.codepampa.controller;
 
 import br.com.codepampa.enumerator.CategoriaPessoaEnum;
 import br.com.codepampa.model.Categoria;
+import br.com.codepampa.model.InteracaoTicket;
 import br.com.codepampa.model.Pessoa;
 import br.com.codepampa.model.Ticket;
+import br.com.codepampa.security.Access;
 import br.com.codepampa.service.CategoriaService;
 import br.com.codepampa.service.PessoaService;
 import br.com.codepampa.service.TicketService;
@@ -47,6 +49,7 @@ public class TicketController implements Serializable {
     private List<Pessoa> responsavel = new ArrayList<>();
     private List<Pessoa> pessoas = new ArrayList<>();
     private Long ticketId;
+    private InteracaoTicket interacaoTicket;
 
 
 
@@ -86,14 +89,25 @@ public class TicketController implements Serializable {
     @URLAction(mappingId = "ticket", onPostback = false)
     public void carregarConteudoPorId() {
         ticket = ticketService.findById(ticketId);
+        interacaoTicket = new InteracaoTicket(Access.carregarUsuarioDaSession(), ticket);
     }
 
     @URLAction(mappingId = "tickets", onPostback = false)
     public List<Ticket> pupularLista() {
         if (tickets.isEmpty()) {
-            tickets = ticketService.findAllCriteria();
+            tickets = ticketService.findAllDistinctCriteria();
         }
         return tickets;
+    }
+
+    public void interagirInternamente() {
+        ticket.addInteracaoInterna(interacaoTicket);
+        salvar();
+    }
+    public void interagirExternamente() {
+        ticket.addInteracaoExterna(interacaoTicket);
+        salvar();
+
     }
 
 

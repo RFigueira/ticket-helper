@@ -56,9 +56,15 @@
                                     </li>
                                 </ul>
                                 <ul class="nav navbar-nav navbar-right">
-                                    <li class="active"><a href="#"><i class="glyphicon glyphicon-user" style="color: #FEFEFE;"> Olá, #{dashboardController.pessoa.nome}</i></a></li>
+                                    <li class="active">
+                                        <a href="#">
+                                            <i class="glyphicon glyphicon-user" style="color: #FEFEFE;"> Olá, #{dashboardController.pessoa.nome}</i>
+                                        </a>
+                                    </li>
                                     <li> 
-                                        <h:commandLink  action="#{loginController.logout}" value=" Sair" />
+                                        <h:commandLink  action="#{loginController.logout}">
+                                        <i class="glyphicon glyphicon-off" ></i> Sair
+                                        </h:commandLink>
                                     </li>
                                 </ul>
                             </div>

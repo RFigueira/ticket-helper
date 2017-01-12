@@ -7,7 +7,6 @@ public enum StatusTicketEnum implements CodePampaInterfacesEnum {
     AGUARDANDO_RESPOSTA("Aguardando resposta"),
     EM_ANDAMENTO("Em andamento"),
     EM_ANALISE("Em Análise"),
-    FINALIZADO("Finalizado"),
     FECHADO("Fechado");
 
     private String nome;

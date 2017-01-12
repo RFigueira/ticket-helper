@@ -5,6 +5,7 @@ import br.com.codepampa.model.BaseModel;
 import com.google.common.base.Strings;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.CriteriaSpecification;
 
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
@@ -85,6 +86,16 @@ public abstract class GenericService<T extends BaseModel<PK>, PK extends Seriali
 
     public List<T> findAllCriteria() {
         final Criteria criteria = getCriteria(getType().getSimpleName() + ".findAll");
+
+        @SuppressWarnings("unchecked")
+        List<T> list = criteria.list();
+        return list;
+    }
+
+    public List<T> findAllDistinctCriteria() {
+        final Criteria criteria = getCriteria(getType().getSimpleName() + ".findAll");
+        criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+
 
         @SuppressWarnings("unchecked")
         List<T> list = criteria.list();

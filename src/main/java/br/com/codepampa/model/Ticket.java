@@ -3,8 +3,6 @@ package br.com.codepampa.model;
 import br.com.codepampa.enumerator.PrioridadeEnum;
 import br.com.codepampa.enumerator.StatusTicketEnum;
 import lombok.Data;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -65,7 +63,6 @@ public class Ticket extends BaseEntity {
 
 
     @OneToMany(mappedBy = "ticket", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private List<InteracaoTicket> interacoes = new ArrayList<>();
 
     public void addInteracaoExterna(InteracaoTicket interacaoTicket) {
