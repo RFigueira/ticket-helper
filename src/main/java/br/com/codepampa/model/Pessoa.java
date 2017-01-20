@@ -13,6 +13,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 
 
 @Data
@@ -58,6 +59,9 @@ public class Pessoa extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "categoria")
     private CategoriaPessoaEnum categoriaPessoaEnum = CategoriaPessoaEnum.ADMIN;
+
+    @Column(name = "data_hora_criacao")
+    private LocalDateTime dataHoraCriacao = LocalDateTime.now();
 
 
 }

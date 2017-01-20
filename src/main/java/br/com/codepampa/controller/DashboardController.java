@@ -33,7 +33,7 @@ public class DashboardController {
         if(pessoa == null) {
             JSFUtil.prettyRedirect("login");
         }
-
+        //JSFUtil.prettyRedirect("tickets");
     }
 
     //TODO: Serve para testar o upload

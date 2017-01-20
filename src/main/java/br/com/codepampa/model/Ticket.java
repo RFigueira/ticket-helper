@@ -1,5 +1,6 @@
 package br.com.codepampa.model;
 
+import br.com.codepampa.enumerator.NivelSatisfacaoEnum;
 import br.com.codepampa.enumerator.PrioridadeEnum;
 import br.com.codepampa.enumerator.StatusTicketEnum;
 import lombok.Data;
@@ -16,7 +17,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 //insert int pessoa values ADMIN, foolha@gmail.com,	Rodrigo Freitas, 532, Capitão ceriaco garcia, 81dc9bdb52d04dc20036dbd8313ed055,	ATIVO
 
@@ -65,6 +69,16 @@ public class Ticket extends BaseEntity {
     @OneToMany(mappedBy = "ticket", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InteracaoTicket> interacoes = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "id_terceirizado")
+    private Pessoa terceirizado;
+
+    @Enumerated(EnumType.STRING)
+    @Column
+    private NivelSatisfacaoEnum nivelSatisfacaoEnum;
+
+
+
     public void addInteracaoExterna(InteracaoTicket interacaoTicket) {
         addInteracao(interacaoTicket, false);
     }
@@ -81,6 +95,13 @@ public class Ticket extends BaseEntity {
         if (interacaoTicket.getDataHoraCriacao() == null) {
             interacaoTicket.setDataHoraCriacao(LocalDateTime.now());
         }
+    }
+
+    public List<InteracaoTicket> getInteracoesByPessoa(Pessoa usuarioLogado) {
+        return interacoes.stream()
+                .filter(i -> usuarioLogado.getCategoriaPessoaEnum().isResponsavel() || !i.isInterna())
+                .sorted(Comparator.comparing(InteracaoTicket::getDataHoraCriacao))
+                .collect(toList());
     }
 
 }

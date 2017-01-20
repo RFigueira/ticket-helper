@@ -37,17 +37,19 @@
                                     <li class="dropdown">
                                         <a  href="#" class="dropdown-toggle"  data-toggle="dropdown">Navegue<b class="caret"></b></a>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li role="presentation" class="dropdown-header"><i class="glyphicon glyphicon-certificate"></i> Categoria</li>
-                                            <li class="">
-                                                <pretty:link id="pretty-link-categoria-nova" mappingId="categoria-nova">Nova</pretty:link>
-                                            </li>
-                                            <li class=""><pretty:link id="pretty-link-categorias" mappingId="categorias">Pesquisar</pretty:link></li>
-                                            <li class="divider"></li>
-                                            <li role="presentation" class="dropdown-header"><i class="glyphicon glyphicon-user"></i> Pessoa</li>
-                                            <li class=""><pretty:link id="pretty-link-pessoa-nova" mappingId="pessoa-nova">Novo</pretty:link>
-                                            </li>
-                                            <li class=""><pretty:link id="pretty-link-pessoas" mappingId="pessoas">Pesquisar</pretty:link></li>
-                                            <li class="divider"></li>
+                                            <ui:fragment rendered="#{dashboardController.pessoa.categoriaPessoaEnum.usuarioInterno}">
+                                                <li role="presentation" class="dropdown-header"><i class="glyphicon glyphicon-certificate"></i> Categoria</li>
+                                                <li class="">
+                                                    <pretty:link id="pretty-link-categoria-nova" mappingId="categoria-nova">Nova</pretty:link>
+                                                </li>
+                                                <li class=""><pretty:link id="pretty-link-categorias" mappingId="categorias">Pesquisar</pretty:link></li>
+                                                <li class="divider"></li>
+                                                <li role="presentation" class="dropdown-header"><i class="glyphicon glyphicon-user"></i> Pessoa</li>
+                                                <li class=""><pretty:link id="pretty-link-pessoa-nova" mappingId="pessoa-nova">Novo</pretty:link>
+                                                </li>
+                                                <li class=""><pretty:link id="pretty-link-pessoas" mappingId="pessoas">Pesquisar</pretty:link></li>
+                                                <li class="divider"></li>
+                                            </ui:fragment>
                                             <li role="presentation" class="dropdown-header"><i class="glyphicon glyphicon-comment"></i> Chamado</li>
                                             <li class=""><pretty:link id="pretty-link-ticket-novo" mappingId="ticket-novo">Novo</pretty:link>
                                             </li>

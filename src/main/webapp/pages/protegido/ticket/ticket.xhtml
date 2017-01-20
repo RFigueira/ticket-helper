@@ -143,8 +143,8 @@
         <ui:fragment rendered="#{ticketController.ticket.id ne null}">
             <ui:fragment rendered="#{ticketController.ticket.interacoes.size() ne 0}">
                 <h3><i class="glyphicon glyphicon-list"></i> Interações</h3>
-                <ui:repeat value="#{ticketController.ticket.interacoes}" var="interacao">
-                    <div class="bs-callout #{interacao.interna ? 'bs-callout-danger' : 'bs-callout-info'}" id="callout-glyphicons-accessibility">
+                <ui:repeat value="#{ticketController.ticket.getInteracoesByPessoa(dashboardController.pessoa)}" var="interacao">
+                    <div class="bs-callout #{interacao.interna ? 'bs-callout-warning' : 'bs-callout-info'}" id="callout-glyphicons-accessibility">
                         <h4>
                             Criado por: #{interacao.pessoa.nome}, em:
                             <h:outputText value="#{ticketController.ticket.dataHoraCriacao}">
@@ -171,7 +171,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-xs-12 col-sm-12 col-md-12 ">
-                            <h:commandLink class="btn btn-danger pull-left"
+                            <h:commandLink class="btn btn-warning pull-left"
                                            action="#{ticketController.interagirInternamente}"
                                            rendered="#{dashboardController.pessoa.categoriaPessoaEnum.responsavel}">
                                 <i class="glyphicon glyphicon-comment"></i>
@@ -179,7 +179,7 @@
                             </h:commandLink>
                             <h:commandLink class="btn btn-primary pull-right" action="#{ticketController.interagirExternamente}"  >
                                 <i class="glyphicon glyphicon-send"></i>
-                                Comentar
+                                Comentário Externo
                             </h:commandLink>
                         </div>
                     </div>
