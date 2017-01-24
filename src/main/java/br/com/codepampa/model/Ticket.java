@@ -4,6 +4,8 @@ import br.com.codepampa.enumerator.NivelSatisfacaoEnum;
 import br.com.codepampa.enumerator.PrioridadeEnum;
 import br.com.codepampa.enumerator.StatusTicketEnum;
 import lombok.Data;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +15,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
@@ -27,6 +31,11 @@ import static java.util.stream.Collectors.toList;
 @Data
 @Entity
 @Table(name = "ticket")
+@NamedQueries({
+        @NamedQuery(name = "Ticket.findTicketsByResponsavel", query = "SELECT DISTINCT t FROM Ticket t WHERE t.responsavel = :responsavel"),
+        @NamedQuery(name = "Ticket.findTicketsBySolicitante", query = "SELECT DISTINCT t FROM Ticket t WHERE t.solicitante = :solicitante"),
+        @NamedQuery(name = "Ticket.findTicketsByPrestadorDeServico", query = "SELECT DISTINCT t FROM Ticket t WHERE t.prestadorServico = :prestadorServico")
+})
 public class Ticket extends BaseEntity {
 
     @Column(name = "titulo", length = 300)
@@ -70,14 +79,24 @@ public class Ticket extends BaseEntity {
     private List<InteracaoTicket> interacoes = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "id_terceirizado")
-    private Pessoa terceirizado;
+    @JoinColumn(name = "id_prestadorServico")
+    private Pessoa prestadorServico;
 
     @Enumerated(EnumType.STRING)
     @Column
     private NivelSatisfacaoEnum nivelSatisfacaoEnum;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Arquivo> arquivos = new ArrayList<>();
 
+    public void addAnexo(Arquivo arquivo) {
+        arquivos.add(arquivo);
+    }
+
+    public void removerAnexo(Arquivo arquivo) {
+        arquivos.remove(arquivo);
+    }
 
     public void addInteracaoExterna(InteracaoTicket interacaoTicket) {
         addInteracao(interacaoTicket, false);

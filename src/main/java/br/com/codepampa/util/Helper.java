@@ -12,6 +12,7 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,5 +53,10 @@ public class Helper {
         return request.getParts().stream().filter(p -> part.getName().equals(p.getName())).collect(Collectors.toList());
     }
 
+    public static String returnPathArquivo(Part part) {
+        return pathUploadFile + LocalDateTime.now()
+                + "." + part.getContentType()
+                .substring((part.getContentType().lastIndexOf("/")+1), part.getContentType().length());
+    }
 
 }

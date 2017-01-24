@@ -1,6 +1,7 @@
 package br.com.codepampa.controller;
 
 import br.com.codepampa.enumerator.CategoriaPessoaEnum;
+import br.com.codepampa.model.Arquivo;
 import br.com.codepampa.model.Categoria;
 import br.com.codepampa.model.InteracaoTicket;
 import br.com.codepampa.model.Pessoa;
@@ -10,19 +11,29 @@ import br.com.codepampa.service.CategoriaService;
 import br.com.codepampa.service.PessoaService;
 import br.com.codepampa.service.TicketService;
 import br.com.codepampa.util.Bundles;
+import br.com.codepampa.util.Helper;
 import br.com.codepampa.util.JSFUtil;
 import com.ocpsoft.pretty.faces.annotation.URLAction;
 import com.ocpsoft.pretty.faces.annotation.URLMapping;
 import com.ocpsoft.pretty.faces.annotation.URLMappings;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.io.IOUtils;
 import org.omnifaces.util.Messages;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.Part;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 //Gerador de getters e setters
@@ -50,6 +61,9 @@ public class TicketController implements Serializable {
     private List<Pessoa> pessoas = new ArrayList<>();
     private Long ticketId;
     private InteracaoTicket interacaoTicket;
+    private Part arquivo;
+    private byte[] imagem;
+
 
 
 
@@ -76,6 +90,8 @@ public class TicketController implements Serializable {
 
     public void salvar() {
         try {
+            //TODO: descomentar apos implementar upload
+            // uploadArquivo();
             ticketService.save(ticket);
             ticketId = ticket.getId();
             Messages.addGlobalInfo(Bundles.getString("operacao.realizada.sucesso"));
@@ -95,7 +111,7 @@ public class TicketController implements Serializable {
     @URLAction(mappingId = "tickets", onPostback = false)
     public List<Ticket> pupularLista() {
         if (tickets.isEmpty()) {
-            tickets = ticketService.findAllDistinctCriteria();
+            tickets = ticketService.findByPessoa(Access.carregarUsuarioDaSession());
         }
         return tickets;
     }
@@ -108,6 +124,34 @@ public class TicketController implements Serializable {
         ticket.addInteracaoExterna(interacaoTicket);
         salvar();
 
+    }
+    private void uploadArquivo() {
+        if(arquivo!= null) {
+            InputStream input;
+            try {
+                for(Part part : Helper.getAllParts(arquivo)) {
+                    input = part.getInputStream();
+                    //Apache Commons IO
+                    imagem = IOUtils.toByteArray(input);
+                    String path = Helper.returnPathArquivo(arquivo);
+                    String pathFisico = (FacesContext.getCurrentInstance().getExternalContext().getRealPath("") + path );
+                    File saida = new File(pathFisico);
+                    OutputStream os = new FileOutputStream(saida);
+                    os.write(imagem);
+                    os.flush();
+                    Arquivo a = new Arquivo(path, arquivo.getSubmittedFileName());
+                    ticket.addAnexo(a);
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, "Erro upload imagem", ex);
+            }
+        }
+    }
+
+    public void removerArquivo(Arquivo arquivo) {
+        ticket.removerAnexo(arquivo);
+        ticketService.save(ticket);
+        Messages.addGlobalInfo(Bundles.getString("operacao.realizada.sucesso"));
     }
 
 

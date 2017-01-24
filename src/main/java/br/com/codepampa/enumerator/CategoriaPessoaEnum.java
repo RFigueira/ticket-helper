@@ -25,4 +25,12 @@ public enum CategoriaPessoaEnum implements CodePampaInterfacesEnum {
     public boolean isUsuarioInterno(){
         return this == ADMIN || this == ANALISTA;
     }
+
+    public boolean isPrestadorDeServico(){
+        return this == PRESTADOR_SERVICO;
+    }
+
+    public boolean isSolicitante(){
+        return this == USUARIO;
+    }
 }

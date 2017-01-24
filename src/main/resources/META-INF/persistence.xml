@@ -3,6 +3,7 @@
         <class>br.com.codepampa.model.Pessoa</class>
         <class>br.com.codepampa.model.Categoria</class>
         <class>br.com.codepampa.model.Ticket</class>
+        <class>br.com.codepampa.model.Arquivo</class>
         <class>br.com.codepampa.model.InteracaoTicket</class>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>

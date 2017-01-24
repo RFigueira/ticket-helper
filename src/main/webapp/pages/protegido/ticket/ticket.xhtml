@@ -12,7 +12,7 @@
             ##{ticketController.ticket.id} - #{ticketController.ticket.solicitante.nome}
     </ui:define>
     <ui:define name="content">
-        <h:form class="form-group">
+        <h:form class="form-group" enctype="multipart/form-data">
             <fieldset>
                 <h:inputHidden value="#{ticketController.ticket.id}" />
                 <legend><h2><i class="glyphicon glyphicon-book" ></i>  Ticket <small>#{ticketController.ticket.id}  #{ticketController.ticket.titulo}</small></h2></legend>
@@ -125,6 +125,25 @@
                                          disabled="#{ticketController.ticket.id ne null}"/>
                     </div>
                 </div>
+                <ui:fragment rendered="false">
+                    <div id="divImagem" class="row full">
+                        <div class="form-group col-xs-12 col-sm-10 col-md-10">
+                            <label>Adicionar imagens</label>
+                            <h:inputFile styleClass="btn btn-warning" value="#{ticketController.arquivo}"
+                                         ptf5:multiple="true"/>
+                        </div>
+                    </div>
+                    <ui:fragment rendered="#{ticketController.ticket.arquivos.size() gt 0}">
+                        <div class="row full">
+                            <ui:repeat id="rptThumbnais" var="img" value="#{ticketController.ticket.arquivos}">
+                                <div class="col-xs-6 col-sm-2 col-md-2">
+                                    <h:graphicImage style="width: 100%; height: 25%" styleClass="thumbnail" value="#{img.path}"/>
+                                    <h:commandButton action="#{ticketController.removerArquivo(img)}" value=" remover" />
+                                </div>
+                            </ui:repeat>
+                        </div>
+                    </ui:fragment>
+                </ui:fragment>
                 <div class="row">
                     <div class="form-group col-xs-12 col-sm-12 col-md-12 ">
                         <h:commandLink class="btn btn-danger pull-left" onclick=" " >
@@ -177,7 +196,7 @@
                                 <i class="glyphicon glyphicon-comment"></i>
                                 Comentário Interno
                             </h:commandLink>
-                            <h:commandLink class="btn btn-primary pull-right" action="#{ticketController.interagirExternamente}"  >
+                            <h:commandLink class="btn btn-info pull-right" action="#{ticketController.interagirExternamente}"  >
                                 <i class="glyphicon glyphicon-send"></i>
                                 Comentário Externo
                             </h:commandLink>
