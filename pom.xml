@@ -194,6 +194,18 @@
             <artifactId>jstl-api</artifactId>
             <version>1.2-rev-1</version>
         </dependency>
+        <!--rest-->
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>1.8</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-json</artifactId>
+            <version>1.8</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>
